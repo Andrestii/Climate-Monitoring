@@ -1,2 +1,2 @@
 # LabInterdisciplinareA
-Progetto universitario
+Progetto universitario "Climate Monitoring" - Università degli Studi dell'Insubria
