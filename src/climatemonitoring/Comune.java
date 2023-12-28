@@ -8,7 +8,7 @@ package climatemonitoring;
 public class Comune {
     public AreaInteresse CercaAreaGeograficaLuogo(String citta, String stato) {
         // Ricerco nella lista quale area ha nome e stato uguali a quelli inseriti
-        if(!ClimateMonitor.areeInteresse.isEmpty()) {  // Controllo se la lista è vuota
+        if(!ClimateMonitor.areeInteresse.isEmpty()) {  // Controllo se la lista non è vuota
 
             /*
             System.out.print(ClimateMonitor.areeInteresse.size());
@@ -32,32 +32,35 @@ public class Comune {
                 
             }
         }
-        return null;
+        return null;    // EXCEPTION DA METTERE
     }
 
     // DA MODIFICARE (?) PER VICINANZA DI COORDINATE
 
     public AreaInteresse CercaAreaGeograficaCoordinate(String lat, String lon) {
-        // Ricerco nella lista quale area ha latitudine e longitudine uguali a quelli inseriti
-        if(ClimateMonitor.areeInteresse != null) {  // Controllo se la lista è vuota
-            for (AreaInteresse a : ClimateMonitor.areeInteresse) {
-                if((a.latitudine == lat) && (a.longitudine == lon)) {   // Abbiamo trovato l'area che volevamo
-                    return a;
-                }
-                else {  // NON abbiamo trovato l'area che volevamo
-                    return null;
+        // Ricerco nella lista quale area ha latitudine e longitudine uguali a quelle inserite
+        if(!ClimateMonitor.areeInteresse.isEmpty()) {  // Controllo se la lista non è vuota
+            for (AreaInteresse a : ClimateMonitor.areeInteresse) { 
+                if(a != null && a.latitudine != null && a.longitudine != null)
+                {
+
+                    if((a.latitudine.equals(lat)) && (a.longitudine.equals(lon))) {   // Abbiamo trovato l'area che volevamo
+                        return a;
+                    }
+                } 
+            }
+            AreaInteresse areaPiuVicina = ClimateMonitor.areeInteresse.get(0);  // Prendo la prima della lista
+
+            for (AreaInteresse a : ClimateMonitor.areeInteresse) { // Allora cerchiamo per le coordinate più vicine
+                double latDouble = Double.parseDouble(lat), lonDouble = Double.parseDouble(lon);    // Che inserisce l'utente
+                double aLat = Double.parseDouble(a.latitudine), aLon = Double.parseDouble(a.longitudine);   // Dalla lista
+                double latVicina = Double.parseDouble(areaPiuVicina.latitudine), lonVicina = Double.parseDouble(areaPiuVicina.longitudine);
+                if(Math.abs(latDouble - aLat) + Math.abs(lonDouble - aLon) < Math.abs(latDouble - latVicina) + Math.abs(lonDouble - lonVicina)) {
+                    areaPiuVicina = a;  // Se è più vicina l'areaInteresse "a" allora aggiorno "areaPiuVicina"
                 }
             }
+            return areaPiuVicina;
         }
-        return null;
-    }
-
-    public void VisualizzaAreaGeografica(AreaInteresse a) {
-        if(a != null) {
-            System.out.println(a.toString());
-        }
-        else {
-            System.out.println("La città non esiste");
-        }
+        return null;    // EXCEPTION DA METTERE 
     }
 }

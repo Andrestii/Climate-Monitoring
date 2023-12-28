@@ -48,15 +48,19 @@ public class ClimateMonitor { // Classe main
         System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login");
         String s = in.readLine("Scelta: ");
 
-        String citta, stato;
+        String citta, stato, latitudine, longitudine;
         Comune c = new Comune();
 
         switch(s) {
             case "1":
                 citta = in.readLine("Inserire città: ");
                 stato = in.readLine("Inserire stato: ");
-                // c.VisualizzaAreaGeografica(c.CercaAreaGeograficaLuogo(citta, stato));
                 System.out.println(c.CercaAreaGeograficaLuogo(citta, stato).toString());
+                break;
+            case "2":
+                latitudine = in.readLine("Inserire latitudine: ");
+                longitudine = in.readLine("Inserire longitudine: ");
+                System.out.println(c.CercaAreaGeograficaCoordinate(latitudine, longitudine).toString());
         }
 
         // CERCA AREA GEOGRAFICA (NOME O COORDINATE) --> VISUALIZZA AREA GEOGRAFICA
