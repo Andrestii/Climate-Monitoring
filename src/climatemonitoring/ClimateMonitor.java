@@ -45,7 +45,7 @@ public class ClimateMonitor { // Classe main
         }
         // PROGRAMMA
         ConsoleInputManager in = new ConsoleInputManager();
-        System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login");
+        System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login\n5)Esci");
         String s = in.readLine("Scelta: ");
 
         String citta, stato, latitudine, longitudine;

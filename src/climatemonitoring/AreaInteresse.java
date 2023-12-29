@@ -19,6 +19,6 @@ public class AreaInteresse {
 
     @Override
     public String toString() {
-        return nome + stato + latitudine + longitudine;
+        return nome + " " + stato + " " + latitudine + " " + longitudine;
     }
 }
