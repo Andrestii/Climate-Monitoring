@@ -48,7 +48,9 @@ public class ClimateMonitor { // Classe main
         System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login\n5)Esci");
         String s = in.readLine("Scelta: ");
 
-        String citta, stato, latitudine, longitudine;
+        String citta, stato, latitudine, longitudine;   // Parametri per la ricerca (caso 1 e 2)
+        String nome, cognome, codFiscale, mail, userid, password;   // Parametri per la registrazione (caso 3)
+        String nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM; // Altri parametri per la registrazione (CM sta per CentroMonitoraggio)
         Comune c = new Comune();
 
         switch(s) {
@@ -61,6 +63,24 @@ public class ClimateMonitor { // Classe main
                 latitudine = in.readLine("Inserire latitudine: ");
                 longitudine = in.readLine("Inserire longitudine: ");
                 System.out.println(c.CercaAreaGeograficaCoordinate(latitudine, longitudine).toString());
+                break;
+            case "3":
+                nome = in.readLine("Inserire nome: ");
+                cognome = in.readLine("Inserire cognome: ");
+                codFiscale = in.readLine("Inserire codice fiscale: ");
+                mail = in.readLine("Inserire una e-mail: ");
+                userid = in.readLine("Inserire uno username: ");
+                password = in.readLine("Inserire una password: ");
+                Operatore op = new Operatore(nome, cognome, codFiscale, mail, userid, password);
+                // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
+                nomeCM = in.readLine("Inserire il nome del centro di monitoraggio: ");
+                viaCM = in.readLine("Inserire la via del centro di monitoraggio: ");
+                ncivicoCM = in.readLine("Inserire il numero civico del centro di monitoraggio: ");
+                capCM = in.readLine("Inserire il cap del centro di monitoraggio: ");
+                comuneCM = in.readLine("Inserire il comune del centro di monitoraggio: ");
+                provinciaCM = in.readLine("Inserire la provincia del centro di monitoraggio: ");
+                op.Registrazione(new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM, op));
+
         }
 
         // CERCA AREA GEOGRAFICA (NOME O COORDINATE) --> VISUALIZZA AREA GEOGRAFICA

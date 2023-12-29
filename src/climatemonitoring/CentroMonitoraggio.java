@@ -14,7 +14,9 @@ public class CentroMonitoraggio {
     public List<AreaInteresse> areeMonitorate;
     public Operatore operatoreRiferimento;
 
-    public CentroMonitoraggio(String nome) {
-
+    public CentroMonitoraggio(String nome, String via, String ncivico, String cap, String comune, String provincia, Operatore operatore) {
+        nome = this.nome;
+        indirizzo = new Indirizzo(via, ncivico, cap, comune, provincia);
+        operatoreRiferimento = operatore;
     }
 }

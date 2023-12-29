@@ -48,4 +48,8 @@ public class Comune {
         }
         return null;    // EXCEPTION DA METTERE 
     }
+
+    public void VisualizzaAreaGeografica(AreaInteresse a) {
+        a.toString();
+    }
 }

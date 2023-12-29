@@ -5,6 +5,8 @@
 
 package climatemonitoring;
 
+import java.io.FileWriter;
+
 public class Operatore extends Comune {
 
     /*di creare una o più aree di interesse (tramite coordinate geografiche), raggrupparle per centro di monitoraggio e annotarle 
@@ -12,7 +14,7 @@ public class Operatore extends Comune {
 
     public String nome, cognome, codFiscale, mail, userid, password;
 
-    public Operatore (String nome, String cognome, String codFiscale, String mail, String userid, String password) {
+    public Operatore (String nome, String cognome, String codFiscale, String mail, String userid, String password) { 
         nome = this.nome;
         cognome = this.cognome;
         codFiscale = this.codFiscale;
@@ -27,7 +29,17 @@ public class Operatore extends Comune {
 
     // VisualizzaAreaGeografica() prendi da superclasse comune          OK
 
-    // Registrazione() // i dati della registrazione devono essere salvati poi su un file OperatoriRegistrati.dati (.txt o .csv)
+    public void Registrazione(CentroMonitoraggio cMonitoraggio) {   // boolean (?)
+        try {
+            // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
+            // Da implementare con RegistraCentroAree()
+
+            FileWriter fw = new FileWriter("./OperatoriRegistrati.csv"); 
+            fw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    } 
 
     // Login()
 

@@ -7,10 +7,9 @@ package climatemonitoring;
 
 public class Indirizzo { // Indirizzo fisico dei centri di monitoraggio
 
-    public String via, comune, provincia;
-    public int ncivico, cap;
+    public String via, ncivico, cap, comune, provincia;
 
-    public Indirizzo(String via, int ncivico, int cap, String comune, String provincia) {
+    public Indirizzo(String via, String ncivico, String cap, String comune, String provincia) {
         via = this.via;
         ncivico = this.ncivico;
         cap = this.cap;
