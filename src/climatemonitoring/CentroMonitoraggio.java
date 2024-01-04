@@ -12,11 +12,9 @@ public class CentroMonitoraggio {
     public String nome;
     public Indirizzo indirizzo;
     public List<AreaInteresse> areeMonitorate;
-    public Operatore operatoreRiferimento;
 
-    public CentroMonitoraggio(String nome, String via, String ncivico, String cap, String comune, String provincia, Operatore operatore) {
+    public CentroMonitoraggio(String nome, String via, String ncivico, String cap, String comune, String provincia) {
         nome = this.nome;
         indirizzo = new Indirizzo(via, ncivico, cap, comune, provincia);
-        operatoreRiferimento = operatore;
-    }
+    } 
 }

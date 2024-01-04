@@ -4,23 +4,28 @@
  * WU WEILI 752602 */
 
 package climatemonitoring;
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Operatore extends Comune {
 
     /*di creare una o più aree di interesse (tramite coordinate geografiche), raggrupparle per centro di monitoraggio e annotarle 
     singolarmente con i parametri forniti ad un operatore in una specifica data secondo i parametri dati nella tabella precedente */
 
-    public String nome, cognome, codFiscale, mail, userid, password;
+    public String nome, cognome, codFiscale, mail, userid, password, nomecMonitoraggio;
 
-    public Operatore (String nome, String cognome, String codFiscale, String mail, String userid, String password) { 
+    public Operatore (String nome, String cognome, String codFiscale, String mail, String userid, String password, String nomecMonitoraggio) { 
         nome = this.nome;
         cognome = this.cognome;
         codFiscale = this.codFiscale;
         mail = this.mail;
         userid = this.userid;
         password = this.password;
+        nomecMonitoraggio = this.nomecMonitoraggio;
     }
 
     // CercaAreaGeografica(nome) prendi da superclasse comune           OK
@@ -29,19 +34,57 @@ public class Operatore extends Comune {
 
     // VisualizzaAreaGeografica() prendi da superclasse comune          OK
 
-    public void Registrazione(CentroMonitoraggio cMonitoraggio) {   // boolean (?)
-        try {
-            // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
-            // Da implementare con RegistraCentroAree()
+    public static List<Operatore> CreaListaOperatori() {   // Dal file .csv prende tutti gli operatori e li mette in una lista
 
-            FileWriter fw = new FileWriter("./OperatoriRegistrati.csv"); 
-            fw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";");
+        List<Operatore> operatori = new ArrayList<Operatore>();
+        String riga = "";
+        // DOBBIAMO CONTROLLARE CHE LA LISTA NON SIA VUOTA 
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("./OperatoriRegistrati.csv"));
+            operatori = new ArrayList<Operatore>();
+
+            String[] datiOP = new String[7];
+
+            while ((riga = br.readLine()) != null) {
+                datiOP = riga.split(";");
+                operatori.add(new Operatore(datiOP[0], datiOP[1], datiOP[2], datiOP[3], datiOP[4], datiOP[5], datiOP[6])); // Riempiamo la lista
+            }
+            br.close();
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return operatori;
+    }
+
+    public static boolean ControllaUsername(String user) {   // Controlla se ci sono più utenti con lo stesso username
+
+        List<Operatore> operatori = CreaListaOperatori();
+        if(!operatori.isEmpty())
+        {
+            for (Operatore op : operatori) {
+            if(user.equals(op.userid))
+                return true;    // Restituisce true se c'è già un utente con quello username
+        }
+        }
+        return false;   // Restituisce false se quello username non è ancora stato occupato da nessuno
+    }
+
+    public void Registrazione() {   // boolean (?)
+        // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
+        // Da implementare con RegistraCentroAree()
+        try {
+        FileWriter fw = new FileWriter("./OperatoriRegistrati.csv"); 
+        fw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";");
         } catch (Exception e) {
             System.err.println(e);
         }
     } 
 
     // Login()
+    public void Login(String username, String passwd) {
+
+    }
 
     // RegistraCentroAree() crea centro monitoraggio // devono essere salvati sul file CentroMonitoraggio.dati (.txt o .csv), e bisogna aggiornare OperatoriRegistrati.dati
                                                      // con un riferimento al centro di monitoraggio appena creato, che sarà il centro di riferimento dell'operatore

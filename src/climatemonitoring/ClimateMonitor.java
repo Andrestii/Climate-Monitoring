@@ -14,7 +14,6 @@ import prog.io.ConsoleInputManager;
 
 public class ClimateMonitor { // Classe main
 
-    static String path = "./CoordinateMonitoraggio.csv"; // Percorso relativo file csv
     static String riga = "";
     public static List<AreaInteresse> areeInteresse;
     public static List<CentroMonitoraggio> centriMonitoraggio;
@@ -24,7 +23,7 @@ public class ClimateMonitor { // Classe main
         // System.out.println("Working Directory = " + System.getProperty("user.dir"));
         // Inserisco tutte le aree di interesse nella lista
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            BufferedReader br = new BufferedReader(new FileReader("./CoordinateMonitoraggio.csv"));
             areeInteresse = new ArrayList<AreaInteresse>();
 
             String[] luoghi = new String[4];
@@ -48,38 +47,46 @@ public class ClimateMonitor { // Classe main
         System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login\n5)Esci");
         String s = in.readLine("Scelta: ");
 
-        String citta, stato, latitudine, longitudine;   // Parametri per la ricerca (caso 1 e 2)
-        String nome, cognome, codFiscale, mail, userid, password;   // Parametri per la registrazione (caso 3)
-        String nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM; // Altri parametri per la registrazione (CM sta per CentroMonitoraggio)
         Comune c = new Comune();
 
         switch(s) {
-            case "1":
-                citta = in.readLine("Inserire città: ");
-                stato = in.readLine("Inserire stato: ");
+            case "1":   // Cerca area geografica per nome
+                String citta = in.readLine("Inserire città: ");
+                String stato = in.readLine("Inserire stato: ");
                 System.out.println(c.CercaAreaGeograficaLuogo(citta, stato).toString());
                 break;
-            case "2":
-                latitudine = in.readLine("Inserire latitudine: ");
-                longitudine = in.readLine("Inserire longitudine: ");
+            case "2":   // Cerca area geografica per coordinate
+                String latitudine = in.readLine("Inserire latitudine: ");
+                String longitudine = in.readLine("Inserire longitudine: ");
                 System.out.println(c.CercaAreaGeograficaCoordinate(latitudine, longitudine).toString());
                 break;
-            case "3":
-                nome = in.readLine("Inserire nome: ");
-                cognome = in.readLine("Inserire cognome: ");
-                codFiscale = in.readLine("Inserire codice fiscale: ");
-                mail = in.readLine("Inserire una e-mail: ");
+            case "3":   // REGISTRAZIONE
+                String nome = in.readLine("Inserire nome: ");
+                String cognome = in.readLine("Inserire cognome: ");
+                String codFiscale = in.readLine("Inserire codice fiscale: ");
+                String mail = in.readLine("Inserire una e-mail: ");
+                String userid;
+                do {    // Controllo sullo username
                 userid = in.readLine("Inserire uno username: ");
-                password = in.readLine("Inserire una password: ");
-                Operatore op = new Operatore(nome, cognome, codFiscale, mail, userid, password);
+                } while(Operatore.ControllaUsername(userid));
+                String password = in.readLine("Inserire una password: ");
+                String nomeCM = in.readLine("Inserire il nome del centro di monitoraggio di afferenza: ");
+                String viaCM = in.readLine("Inserire la via del centro di monitoraggio: ");
+                String ncivicoCM = in.readLine("Inserire il numero civico del centro di monitoraggio: ");
+                String capCM = in.readLine("Inserire il cap del centro di monitoraggio: ");
+                String comuneCM = in.readLine("Inserire il comune del centro di monitoraggio: ");
+                String provinciaCM = in.readLine("Inserire la provincia del centro di monitoraggio: ");
                 // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
-                nomeCM = in.readLine("Inserire il nome del centro di monitoraggio: ");
-                viaCM = in.readLine("Inserire la via del centro di monitoraggio: ");
-                ncivicoCM = in.readLine("Inserire il numero civico del centro di monitoraggio: ");
-                capCM = in.readLine("Inserire il cap del centro di monitoraggio: ");
-                comuneCM = in.readLine("Inserire il comune del centro di monitoraggio: ");
-                provinciaCM = in.readLine("Inserire la provincia del centro di monitoraggio: ");
-                op.Registrazione(new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM, op));
+                Operatore op = new Operatore(nome, cognome, codFiscale, mail, userid, password, nomeCM);
+                CentroMonitoraggio cm = new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM);
+                op.Registrazione();
+                System.out.println("Registrazione avvenuta con successo!");
+                break;
+            case "4":   // LOGIN
+                String username = in.readLine("Inserire username: ");
+                String passwd = in.readLine("Inserire password: ");
+
+                break;
 
         }
 
