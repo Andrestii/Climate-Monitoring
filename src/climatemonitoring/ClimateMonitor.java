@@ -39,18 +39,19 @@ public class ClimateMonitor { // Classe main
         }
         // PROGRAMMA
         ConsoleInputManager in = new ConsoleInputManager();
-        System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login\n5)Esci");
-        String s = in.readLine("Scelta: ");
-
         Comune c = new Comune();
+        String s;
 
-        switch(s) {
-            case "1":   // Cerca area geografica per nome
+        do {
+            System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login\n5)Esci");
+            s = in.readLine("Scelta: ");
+            switch(s) {
+            case "1":   // CERCA AREA GEOGRAFICA PER NOME
                 String citta = in.readLine("Inserire città: ");
                 String stato = in.readLine("Inserire stato: ");
                 System.out.println(c.CercaAreaGeograficaLuogo(citta, stato).toString());
                 break;
-            case "2":   // Cerca area geografica per coordinate
+            case "2":   // CERCA AREA GEOGRAFICA PER COORDINATE
                 String latitudine = in.readLine("Inserire latitudine: ");
                 String longitudine = in.readLine("Inserire longitudine: ");
                 System.out.println(c.CercaAreaGeograficaCoordinate(latitudine, longitudine).toString());
@@ -61,7 +62,7 @@ public class ClimateMonitor { // Classe main
                 String codFiscale = in.readLine("Inserire codice fiscale: ");
                 String mail = in.readLine("Inserire una e-mail: ");
                 String userid;
-                do {    // Controllo sullo username
+                do {    // Controllo sullo username (se è già preso)
                 userid = in.readLine("Inserire uno username: ");
                 if(Operatore.ControllaUsername(userid))
                     System.out.println("Username già esistente!");
@@ -77,18 +78,22 @@ public class ClimateMonitor { // Classe main
                 Operatore op = new Operatore(nome, cognome, codFiscale, mail, userid, password, nomeCM);
                 CentroMonitoraggio cm = new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM);
                 op.Registrazione();
+                // op.RegistraCentroAree(cm);
                 System.out.println("Registrazione avvenuta con successo!");
                 break;
             case "4":   // LOGIN
                 String username = in.readLine("Inserire username: ");
                 String passwd = in.readLine("Inserire password: ");
+                if(Operatore.Login(username, passwd)) {
+                    System.out.println("Login effettuato con successo");
+                }
+                    // Menù operatore registrato ...
 
+                else
+                    System.out.println("Username o password errati");
                 break;
 
-        }
-
-        // CERCA AREA GEOGRAFICA (NOME O COORDINATE) --> VISUALIZZA AREA GEOGRAFICA
-        // REGISTRAZIONE e LOGIN --> INTERFACCIA OPERATORE
-
+            }
+        } while(Integer.parseInt(s) <= 5 && Integer.parseInt(s) > 0);
     }
 }

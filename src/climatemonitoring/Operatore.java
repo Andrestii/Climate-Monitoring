@@ -82,9 +82,16 @@ public class Operatore extends Comune {
         }
     } 
 
-    // Login()
-    public void Login(String username, String passwd) {
-
+    public static boolean Login(String username, String passwd) {
+        List<Operatore> operatori = CreaListaOperatori();
+        if(!operatori.isEmpty())
+        {
+            for (Operatore op : operatori) {
+            if(username.equals(op.userid) && passwd.equals(op.password))
+                return true;    // Restituisce true se la password è corretta
+            }
+        }
+        return false;   // Restituisce false se username o password sono sbagliati
     }
 
     // RegistraCentroAree() crea centro monitoraggio // devono essere salvati sul file CentroMonitoraggio.dati (.txt o .csv), e bisogna aggiornare OperatoriRegistrati.dati
