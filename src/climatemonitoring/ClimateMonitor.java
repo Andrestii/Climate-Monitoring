@@ -43,7 +43,7 @@ public class ClimateMonitor { // Classe main
         String s;
 
         do {
-            System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1)Cerca area geografica per nome\n2)Cerca area geografica per coordinate\n3)Registrati\n4)Login\n5)Esci");
+            System.out.println("\nBENVENUTO! Che cosa vuoi fare?\n1) Cerca area geografica per nome\n2) Cerca area geografica per coordinate\n3) Registrati\n4) Login\n5) Esci");
             s = in.readLine("Scelta: ");
             switch(s) {
             case "1":   // CERCA AREA GEOGRAFICA PER NOME
@@ -63,9 +63,9 @@ public class ClimateMonitor { // Classe main
                 String mail = in.readLine("Inserire una e-mail: ");
                 String userid;
                 do {    // Controllo sullo username (se è già preso)
-                userid = in.readLine("Inserire uno username: ");
-                if(Operatore.ControllaUsername(userid))
-                    System.out.println("Username già esistente!");
+                    userid = in.readLine("Inserire uno username: ");
+                    if(Operatore.ControllaUsername(userid))
+                        System.out.println("Username già esistente!");
                 } while(Operatore.ControllaUsername(userid));
                 String password = in.readLine("Inserire una password: ");
                 String nomeCM = in.readLine("Inserire il nome del centro di monitoraggio di afferenza: ");
