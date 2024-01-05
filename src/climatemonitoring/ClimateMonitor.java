@@ -30,13 +30,8 @@ public class ClimateMonitor { // Classe main
 
             while ((riga = br.readLine()) != null) {
                 luoghi = riga.split(";");
-                // System.out.print(luoghi[0] + " " + luoghi[1] + " " + luoghi[2] + " " + luoghi[3] + "\n"); // STAMPA DI CONTROLLO
                 areeInteresse.add(new AreaInteresse(luoghi[0], luoghi[1], luoghi[2], luoghi[3])); // Riempiamo la lista
-                // areeInteresse.forEach(System.out::println); // STAMPA DI CONTROLLO
             }
-
-            // System.out.print(areeInteresse.size()); // STAMPA DI CONTROLLO (Dimensione lista)
-
             br.close();
 
         } catch (FileNotFoundException e) {
@@ -68,6 +63,8 @@ public class ClimateMonitor { // Classe main
                 String userid;
                 do {    // Controllo sullo username
                 userid = in.readLine("Inserire uno username: ");
+                if(Operatore.ControllaUsername(userid))
+                    System.out.println("Username già esistente!");
                 } while(Operatore.ControllaUsername(userid));
                 String password = in.readLine("Inserire una password: ");
                 String nomeCM = in.readLine("Inserire il nome del centro di monitoraggio di afferenza: ");

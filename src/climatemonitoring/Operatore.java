@@ -5,7 +5,8 @@
 
 package climatemonitoring;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+// import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class Operatore extends Comune {
     public String nome, cognome, codFiscale, mail, userid, password, nomecMonitoraggio;
 
     public Operatore (String nome, String cognome, String codFiscale, String mail, String userid, String password, String nomecMonitoraggio) { 
-        nome = this.nome;
-        cognome = this.cognome;
-        codFiscale = this.codFiscale;
-        mail = this.mail;
-        userid = this.userid;
-        password = this.password;
-        nomecMonitoraggio = this.nomecMonitoraggio;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.codFiscale = codFiscale;
+        this.mail = mail;
+        this.userid = userid;
+        this.password = password;
+        this.nomecMonitoraggio = nomecMonitoraggio;
     }
 
     // CercaAreaGeografica(nome) prendi da superclasse comune           OK
@@ -38,11 +39,10 @@ public class Operatore extends Comune {
 
         List<Operatore> operatori = new ArrayList<Operatore>();
         String riga = "";
-        // DOBBIAMO CONTROLLARE CHE LA LISTA NON SIA VUOTA 
+
         try {
             BufferedReader br = new BufferedReader(new FileReader("./OperatoriRegistrati.csv"));
             operatori = new ArrayList<Operatore>();
-
             String[] datiOP = new String[7];
 
             while ((riga = br.readLine()) != null) {
@@ -65,17 +65,18 @@ public class Operatore extends Comune {
             for (Operatore op : operatori) {
             if(user.equals(op.userid))
                 return true;    // Restituisce true se c'è già un utente con quello username
-        }
+            }
         }
         return false;   // Restituisce false se quello username non è ancora stato occupato da nessuno
     }
 
-    public void Registrazione() {   // boolean (?)
+    public void Registrazione() {
         // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
         // Da implementare con RegistraCentroAree()
         try {
-        FileWriter fw = new FileWriter("./OperatoriRegistrati.csv"); 
-        fw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";");
+        BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
+        bw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";" + "\n");
+        bw.close();
         } catch (Exception e) {
             System.err.println(e);
         }
