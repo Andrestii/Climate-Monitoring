@@ -94,6 +94,8 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se username o password sono sbagliati
     }
 
+    
+
     // RegistraCentroAree() crea centro monitoraggio // devono essere salvati sul file CentroMonitoraggio.dati (.txt o .csv), e bisogna aggiornare OperatoriRegistrati.dati
                                                      // con un riferimento al centro di monitoraggio appena creato, che sarà il centro di riferimento dell'operatore
     // RegistraAreaInteresse() 
