@@ -68,8 +68,6 @@ public class Operatore extends Comune {
     }
 
     public void Registrazione() {
-        // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
-        // Da implementare con RegistraCentroAree()
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
             bw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";" + "\n");
@@ -91,7 +89,32 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se username o password sono sbagliati
     }
 
-    
+    public void RegistraCentroAree(CentroMonitoraggio cm) {
+        try {   // Aggiorniamo il file con i centri di monitoraggio
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./CentroMonitoraggio.csv", true)); 
+            bw.write(cm.nome + ";" + cm.indirizzo.via + ";" + cm.indirizzo.ncivico + ";" + cm.indirizzo.cap + ";" + cm.indirizzo.comune + ";" + cm.indirizzo.provincia + ";" + "\n");
+            bw.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        List<Operatore> opRegistrati = CreaListaOperatori();
+        for (Operatore o : opRegistrati) {
+            if(o.userid.equals(userid)) {
+                o.nomecMonitoraggio = cm.nome;
+            }   // CAPIRE COME AGGIORNARE 
+        }
+                
+        try {   // Aggiorniamo il file con gli operatori registrati
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
+            bw.write(cm.nome + ";" + cm.indirizzo.via + ";" + cm.indirizzo.ncivico + ";" + cm.indirizzo.cap + ";" + cm.indirizzo.comune + ";" + cm.indirizzo.provincia + ";" + "\n");
+            bw.close();
+            
+            
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
 
     // RegistraCentroAree() crea centro monitoraggio // devono essere salvati sul file CentroMonitoraggio.dati (.txt o .csv), e bisogna aggiornare OperatoriRegistrati.dati
                                                      // con un riferimento al centro di monitoraggio appena creato, che sarà il centro di riferimento dell'operatore

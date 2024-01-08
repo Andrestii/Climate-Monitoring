@@ -68,17 +68,8 @@ public class ClimateMonitor { // Classe main
                         System.out.println("Username già esistente!");
                 } while(Operatore.ControllaUsername(userid));
                 String password = in.readLine("Inserire una password: ");
-                String nomeCM = in.readLine("Inserire il nome del centro di monitoraggio di afferenza: ");
-                String viaCM = in.readLine("Inserire la via del centro di monitoraggio: ");
-                String ncivicoCM = in.readLine("Inserire il numero civico del centro di monitoraggio: ");
-                String capCM = in.readLine("Inserire il cap del centro di monitoraggio: ");
-                String comuneCM = in.readLine("Inserire il comune del centro di monitoraggio: ");
-                String provinciaCM = in.readLine("Inserire la provincia del centro di monitoraggio: ");
-                // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
-                Operatore op = new Operatore(nome, cognome, codFiscale, mail, userid, password, nomeCM);
-                CentroMonitoraggio cm = new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM);
+                Operatore op = new Operatore(nome, cognome, codFiscale, mail, userid, password, " ");
                 op.Registrazione();
-                // op.RegistraCentroAree(cm);
                 System.out.println("Registrazione avvenuta con successo!");
                 break;
             case "4":   // LOGIN
@@ -86,14 +77,48 @@ public class ClimateMonitor { // Classe main
                 String passwd = in.readLine("Inserire password: ");
                 if(Operatore.Login(username, passwd)) {
                     System.out.println("Login effettuato con successo");
-                }
                     // Menù operatore registrato ...
+                    String scelta;
+                    do {
+                        scelta = in.readLine("\nBENVENUTO OPERATORE! Che cosa vuoi fare?\n1) Registra nuovo centro di monitoraggio\n2) Aggiungere area di interesse\n3) Esci\n");
+                        // Trovo l'operatore che ha effettuato il login
+                        List<Operatore> opRegistrati = Operatore.CreaListaOperatori();
+                        Operatore opRegistrato = null;
+                        for (Operatore o : opRegistrati) {
+                            if(o.userid.equals(username))
+                                opRegistrato = o;
+                        } 
+                        switch (scelta) {
+                            case "1":
+                                if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore non ha già un centro di monitoraggio associato
+                                    String nomeCM = in.readLine("Inserire il nome del centro di monitoraggio: ");
+                                    String viaCM = in.readLine("Inserire la via del centro di monitoraggio: ");
+                                    String ncivicoCM = in.readLine("Inserire il numero civico del centro di monitoraggio: ");
+                                    String capCM = in.readLine("Inserire il cap del centro di monitoraggio: ");
+                                    String comuneCM = in.readLine("Inserire il comune del centro di monitoraggio: ");
+                                    String provinciaCM = in.readLine("Inserire la provincia del centro di monitoraggio: ");
+                                    CentroMonitoraggio cm = new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM);
+                                    opRegistrato.RegistraCentroAree(cm);
+                                }
+                                else {
+                                    System.out.println("L'operatore " + username + " ha già un centro di monitoraggio associato!"); 
+                                }
+                                break;
+                            case "2":
+                                // 
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (Integer.parseInt(scelta) != 3);
+                }  
 
                 else
                     System.out.println("Username o password errati");
                 break;
-
+            default:
+                break;
             }
-        } while(Integer.parseInt(s) <= 5 && Integer.parseInt(s) > 0);
+        } while(Integer.parseInt(s) != 5);
     }
 }
