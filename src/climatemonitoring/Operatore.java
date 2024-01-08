@@ -61,12 +61,9 @@ public class Operatore extends Comune {
 
         List<Operatore> operatori = CreaListaOperatori();
         if(!operatori.isEmpty())
-        {
-            for (Operatore op : operatori) {
-            if(user.equals(op.userid))
-                return true;    // Restituisce true se c'è già un utente con quello username
-            }
-        }
+            for (Operatore op : operatori) 
+                if(user.equals(op.userid))
+                    return true;    // Restituisce true se c'è già un utente con quello username
         return false;   // Restituisce false se quello username non è ancora stato occupato da nessuno
     }
 
@@ -74,9 +71,9 @@ public class Operatore extends Comune {
         // Ogni volta che registriamo un operatore gli assegnamo un NUOVO centro di monitoraggio
         // Da implementare con RegistraCentroAree()
         try {
-        BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
-        bw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";" + "\n");
-        bw.close();
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
+            bw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";" + "\n");
+            bw.close();
         } catch (Exception e) {
             System.err.println(e);
         }
