@@ -1,8 +1,8 @@
-## Climate Monitoring
+# Climate Monitoring
 
 Progetto univerisitario per il corso Laboratorio Interdisciplinare A.
 
-## Manuali
+### Manuali
 
 - [Manuale utente]()
 - [Manuale tecnico]()
