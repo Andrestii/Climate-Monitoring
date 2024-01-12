@@ -80,7 +80,8 @@ public class ClimateMonitor { // Classe main
                     // Menù operatore registrato ...
                     String scelta;
                     do {
-                        scelta = in.readLine("\nBENVENUTO OPERATORE! Che cosa vuoi fare?\n1) Registra nuovo centro di monitoraggio\n2) Aggiungere area di interesse\n3) Esci\n");
+                        System.out.println("\nBENVENUTO OPERATORE! Che cosa vuoi fare?\n1) Registra nuovo centro di monitoraggio\n2) Aggiungere area di interesse\n3) Esci");
+                        scelta = in.readLine("Scelta: ");
                         // Trovo l'operatore che ha effettuato il login
                         List<Operatore> opRegistrati = Operatore.CreaListaOperatori();
                         Operatore opRegistrato = null;
@@ -90,15 +91,15 @@ public class ClimateMonitor { // Classe main
                         } 
                         switch (scelta) {
                             case "1":
-                                if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore non ha già un centro di monitoraggio associato
+                                if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore NON ha già un centro di monitoraggio associato
                                     String nomeCM = in.readLine("Inserire il nome del centro di monitoraggio: ");
                                     String viaCM = in.readLine("Inserire la via del centro di monitoraggio: ");
                                     String ncivicoCM = in.readLine("Inserire il numero civico del centro di monitoraggio: ");
                                     String capCM = in.readLine("Inserire il cap del centro di monitoraggio: ");
                                     String comuneCM = in.readLine("Inserire il comune del centro di monitoraggio: ");
                                     String provinciaCM = in.readLine("Inserire la provincia del centro di monitoraggio: ");
-                                    CentroMonitoraggio cm = new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM);
-                                    opRegistrato.RegistraCentroAree(cm);
+                                    opRegistrato.RegistraCentroAree(new CentroMonitoraggio(nomeCM, viaCM, ncivicoCM, capCM, comuneCM, provinciaCM));
+                                    System.out.println("Centro di monitoraggio registrato con successo!");
                                 }
                                 else {
                                     System.out.println("L'operatore " + username + " ha già un centro di monitoraggio associato!"); 

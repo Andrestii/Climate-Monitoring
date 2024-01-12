@@ -11,11 +11,11 @@ public class ParametroClimatico {
     public String note;
 
     public ParametroClimatico(int score) {
-        score = this.score;
+        this.score = score;
     }
 
     public ParametroClimatico(int score, String note) {
-        score = this.score;
-        note = this.note;
+        this.score = score;
+        this.note = note;
     }
 }

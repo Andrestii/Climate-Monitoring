@@ -101,23 +101,25 @@ public class Operatore extends Comune {
         for (Operatore o : opRegistrati) {
             if(o.userid.equals(userid)) {
                 o.nomecMonitoraggio = cm.nome;
-            }   // CAPIRE COME AGGIORNARE 
+            }
         }
                 
         try {   // Aggiorniamo il file con gli operatori registrati
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
-            bw.write(cm.nome + ";" + cm.indirizzo.via + ";" + cm.indirizzo.ncivico + ";" + cm.indirizzo.cap + ";" + cm.indirizzo.comune + ";" + cm.indirizzo.provincia + ";" + "\n");
-            bw.close();
-            
-            
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true));
+            // Svuota il file per poi riaggiornarlo dopo con la lista di operatori aggiornata
+            FileWriter fw = new FileWriter("./OperatoriRegistrati.csv");
+            fw.write("");
+            fw.close();
+            // Aggiorno il file con la lista di operatori aggiornata
+            for (Operatore o : opRegistrati) {
+                bw.write(o.nome + ";" + o.cognome + ";" + o.codFiscale + ";" + o.mail + ";" + o.userid + ";" + o.password + ";" + o.nomecMonitoraggio + ";" + "\n");
+            } 
+            bw.close(); 
         } catch (Exception e) {
             System.err.println(e);
         }
     }
 
-    // RegistraCentroAree() crea centro monitoraggio // devono essere salvati sul file CentroMonitoraggio.dati (.txt o .csv), e bisogna aggiornare OperatoriRegistrati.dati
-                                                     // con un riferimento al centro di monitoraggio appena creato, che sarà il centro di riferimento dell'operatore
     // RegistraAreaInteresse() 
 
     // InserisciParametriClimatici(AreaInteresse) // i paramentri inseriti andranno nel file ParametriClimatici.dati
