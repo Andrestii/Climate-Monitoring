@@ -72,7 +72,7 @@ public class ClimateMonitor { // Classe main
                         for (Operatore o : opRegistrati) {
                             if(o.userid.equals(username))
                                 opRegistrato = o;
-                        } 
+                        }  
                         switch (scelta) {
                             case "1":   // REGISTRA NUOVO CENTRO DI MONITORAGGIO
                                 if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore NON ha già un centro di monitoraggio associato
