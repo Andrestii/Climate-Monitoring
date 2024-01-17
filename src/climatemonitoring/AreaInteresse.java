@@ -1,7 +1,8 @@
 /* DE PAOLI LORENZO 753577
  * ONESTI ANDREA 754771
  * RIZZO MATTIA 755403
- * WU WEILI 752602 */
+ * WU WEILI 752602 
+ * SEDE: VARESE */
 
 package climatemonitoring;
 
@@ -19,6 +20,6 @@ public class AreaInteresse {
 
     @Override
     public String toString() {
-        return nome + " " + stato + " " + latitudine + " " + longitudine;
+        return "\nCittà: " + nome + "\nStato: " + stato + "\nLatitudine: " + latitudine + "\nLongitudine " + longitudine;
     }
 }
