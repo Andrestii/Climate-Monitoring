@@ -25,7 +25,7 @@ public class Comune {
                 
             }
         }
-        return null;    // EXCEPTION DA METTERE
+        return null;
     }
 
     public AreaInteresse CercaAreaGeograficaCoordinate(String lat, String lon) {
@@ -52,15 +52,19 @@ public class Comune {
             }
             return areaPiuVicina;
         }
-        return null;    // EXCEPTION DA METTERE 
+        return null;
     }
 
     public void VisualizzaAreaGeografica(AreaInteresse a) {
-
-        String[] parametri = CreaListaParametri(a);
-        System.out.println(a.toString());
-        if(parametri[14]!=null)
-            System.out.println("\nParametri climatici rilevati il " + parametri[14] + " alle " + parametri[15] + "\n\nVento: " + parametri[0] + "\n-> Note: " + parametri[1] + "\n\nUmidità: " + parametri[2] + "\n-> Note: " + parametri[3] + "\n\nPressione : " + parametri[4] + "\n-> Note: " + parametri[5] + "\n\nTemperatura: " + parametri[6] + "\n-> Note: " + parametri[7] + "\n\nPrecipitazioni: " + parametri[8] + "\n-> Note: " + parametri[9] + "\n\nAltitudine dei ghiacciai: " + parametri[10] + "\n-> Note: " + parametri[11] + "\n\nMassa dei ghiacciai: " + parametri[12] + "\n-> Note: " + parametri[13]);
+        if(a != null) {
+            String[] parametri = CreaListaParametri(a);
+            System.out.println(a.toString());
+            if(parametri[14]!=null)
+                System.out.println("\nParametri climatici rilevati il " + parametri[14] + " alle " + parametri[15] + "\n\nVento: " + parametri[0] + "\n-> Note: " + parametri[1] + "\n\nUmidità: " + parametri[2] + "\n-> Note: " + parametri[3] + "\n\nPressione : " + parametri[4] + "\n-> Note: " + parametri[5] + "\n\nTemperatura: " + parametri[6] + "\n-> Note: " + parametri[7] + "\n\nPrecipitazioni: " + parametri[8] + "\n-> Note: " + parametri[9] + "\n\nAltitudine dei ghiacciai: " + parametri[10] + "\n-> Note: " + parametri[11] + "\n\nMassa dei ghiacciai: " + parametri[12] + "\n-> Note: " + parametri[13]);
+        }
+        else {
+            System.out.println("Quest'area di interesse non esiste!");
+        }
     }
 
     public static String[] CreaListaParametri(AreaInteresse a) {   // Dal file .csv prende tutti i parametri e li mette in una array di stringhe
