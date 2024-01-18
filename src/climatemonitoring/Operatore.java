@@ -13,8 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-// import java.sql.Date;
-// import java.io.FileNotFoundException;
 
 import prog.io.ConsoleInputManager;
 
@@ -47,7 +45,7 @@ public class Operatore extends Comune {
         String riga = "";
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./CoordinateMonitoraggio.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("./data/CoordinateMonitoraggio.csv"));
             areeInteresse = new ArrayList<AreaInteresse>();
             String[] luoghi = new String[4];
 
@@ -69,7 +67,7 @@ public class Operatore extends Comune {
         String riga = "";
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./OperatoriRegistrati.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("./data/OperatoriRegistrati.csv"));
             operatori = new ArrayList<Operatore>();
             String[] datiOP = new String[7];
 
@@ -91,7 +89,7 @@ public class Operatore extends Comune {
         String riga = "";
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("./CentroMonitoraggio.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("./data/CentroMonitoraggio.csv"));
             centriMonitoraggio = new ArrayList<CentroMonitoraggio>();
             String[] datiCM = new String[7];
 
@@ -137,9 +135,19 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se quel centro non esiste ancora
     }
 
+    public static boolean ControllaCoordinate(String lat, String lon) {   // Controlla se ci sono più aree con lo stesso nome
+
+        List<AreaInteresse> aree = CreaListaAreeInteresse();
+        if(!aree.isEmpty())
+            for (AreaInteresse a : aree) 
+                if(lat.equals(a.latitudine) && lon.equals(a.longitudine))
+                    return true;    // Restituisce true se c'è già un'area con quelle coordinate
+        return false;   // Restituisce false se non c'è un'area con le stesse coordinate
+    }
+
     public void Registrazione() {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true)); 
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./data/OperatoriRegistrati.csv", true)); 
             bw.write(nome + ";" + cognome + ";" + codFiscale + ";" + mail + ";" + userid + ";" + password + ";" + nomecMonitoraggio + ";" + "\n");
             bw.close();
         } catch (Exception e) {
@@ -161,7 +169,7 @@ public class Operatore extends Comune {
 
     public void RegistraCentroAree(CentroMonitoraggio cm) {
         try {   // Aggiorniamo il file con i centri di monitoraggio
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./CentroMonitoraggio.csv", true)); 
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./data/CentroMonitoraggio.csv", true)); 
             bw.write(cm.nome + ";" + cm.indirizzo.via + ";" + cm.indirizzo.ncivico + ";" + cm.indirizzo.cap + ";" + cm.indirizzo.comune + ";" + cm.indirizzo.provincia + ";" + " ;" + "\n");
             bw.close();
         } catch (Exception e) {
@@ -175,9 +183,9 @@ public class Operatore extends Comune {
             }
         }   
         try {   // Aggiorniamo il file con gli operatori registrati
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./OperatoriRegistrati.csv", true));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./data/OperatoriRegistrati.csv", true));
             // Svuota il file per poi riaggiornarlo dopo con la lista di operatori aggiornata
-            FileWriter fw = new FileWriter("./OperatoriRegistrati.csv");
+            FileWriter fw = new FileWriter("./data/OperatoriRegistrati.csv");
             fw.write("");
             fw.close();
             // Aggiorno il file con la lista di operatori aggiornata
@@ -192,7 +200,7 @@ public class Operatore extends Comune {
 
     public void RegistraAreaInteresse(String n, String s, String lat, String lon) {
         try {   // Aggiorniamo CoordinateMonitoraggio.csv
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./CoordinateMonitoraggio.csv", true)); 
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./data/CoordinateMonitoraggio.csv", true)); 
             bw.write(n + ";" + s + ";" + lat + ";" + lon + ";" + "\n");
             bw.close();
         } catch (Exception e) {
@@ -206,9 +214,9 @@ public class Operatore extends Comune {
             }
         }       
         try {   // Aggiorniamo CentroMonitoraggio.csv
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./CentroMonitoraggio.csv", true));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./data/CentroMonitoraggio.csv", true));
             // Svuota il file per poi riaggiornarlo dopo con la lista di centri aggiornata
-            FileWriter fw = new FileWriter("./CentroMonitoraggio.csv");
+            FileWriter fw = new FileWriter("./data/CentroMonitoraggio.csv");
             fw.write("");
             fw.close();
             // Aggiorno il file con la lista di centri aggiornata
@@ -290,7 +298,7 @@ public class Operatore extends Comune {
             }
             try {   // Carichiamo i parametri nel file
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                BufferedWriter bw = new BufferedWriter(new FileWriter("./ParametriClimatici.csv", true)); 
+                BufferedWriter bw = new BufferedWriter(new FileWriter("./data/ParametriClimatici.csv", true)); 
                 bw.write(c + ";" + vento + ";" + noteVento + ";" + umidita + ";" + noteUmidita + ";" + pressione + ";" + notePressione + ";" + temperatura + ";" + noteTemperatura + ";" + precipitazioni + ";" + notePrecipitazioni + ";" + altitudineGhiacciai + ";" + noteAltitudine + ";" + massaGhiacciai + ";" + noteMassa + ";" + java.time.LocalDate.now() + ";" + sdf.format(new Date()) + ";\n");
                 bw.close();
             } catch (Exception e) {

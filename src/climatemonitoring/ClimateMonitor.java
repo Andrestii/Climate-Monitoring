@@ -6,10 +6,6 @@
 
 package climatemonitoring;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 import prog.io.ConsoleInputManager;
 
@@ -38,6 +34,7 @@ public class ClimateMonitor { // Classe main
             case "2":   // CERCA AREA GEOGRAFICA PER COORDINATE
                 String latitudine = in.readLine("Inserire latitudine: ");
                 String longitudine = in.readLine("Inserire longitudine: ");
+                System.out.print("\nL'area registrata più vicina alle coordinate inserite:");
                 c.VisualizzaAreaGeografica(c.CercaAreaGeograficaCoordinate(latitudine, longitudine));
                 break;
             case "3":   // REGISTRAZIONE
@@ -95,43 +92,55 @@ public class ClimateMonitor { // Classe main
                                 }
                                 break;   
                             case "2":   // REGISTRA NUOVA AREA DI INTERESSE
-                            if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore NON ha già un centro di monitoraggio associato
-                                System.out.println("L'operatore " + username + " NON ha un centro di monitoraggio associato!");
-                            }
-                            else {  // L'operatore ha un centro di monitoraggio associato e quindi può creare le aree di interesse che monitora quel centro
-                                String nomeArea;
-                                do {    // Controllo che non ci sia già un'altra area di interesse con lo stesso nome
-                                    nomeArea = in.readLine("Inserire il nome dell'area di interesse: ");
-                                    if(Operatore.ControllaNomeArea(nomeArea))
-                                        System.out.println("Area già esistente!");
-                                } while(Operatore.ControllaNomeArea(nomeArea));
-                                String statoArea = in.readLine("Inserire lo stato dell'area di interesse: ");
-                                String latArea = in.readLine("Inserire la latitudine dell'area di interesse: ");
-                                String longArea = in.readLine("Inserire la longitudine dell'area di interesse: ");
-                                opRegistrato.RegistraAreaInteresse(nomeArea, statoArea, latArea, longArea);
-                                System.out.println("Registrazione effettuata con successo");
-                            }   
+                                if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore NON ha già un centro di monitoraggio associato
+                                    System.out.println("L'operatore " + username + " NON ha un centro di monitoraggio associato!");
+                                }
+                                else {  // L'operatore ha un centro di monitoraggio associato e quindi può creare le aree di interesse che monitora quel centro
+                                    String nomeArea, latArea, longArea;
+                                    do {    // Controllo che non ci sia già un'altra area di interesse con lo stesso nome
+                                        nomeArea = in.readLine("Inserire il nome dell'area di interesse: ");
+                                        if(Operatore.ControllaNomeArea(nomeArea))
+                                            System.out.println("Area già esistente!");
+                                    } while(Operatore.ControllaNomeArea(nomeArea));
+                                    String statoArea = in.readLine("Inserire lo stato dell'area di interesse: ");
+                                    do {    // Controllo che non ci sia già un'altra area di interesse con le stesse coordinate
+                                        latArea = in.readLine("Inserire la latitudine dell'area di interesse: ");
+                                        longArea = in.readLine("Inserire la longitudine dell'area di interesse: ");
+                                        if(Operatore.ControllaCoordinate(latArea, longArea))
+                                            System.out.println("Area con quelle coordinate già esistente!");
+                                    } while(Operatore.ControllaCoordinate(latArea, longArea));
+                                    opRegistrato.RegistraAreaInteresse(nomeArea, statoArea, latArea, longArea);
+                                    System.out.println("Registrazione effettuata con successo");
+                                }   
                                 break;
                             case "3":   // INSERISCI PARAMETRI CLIMATICI
                                 if(opRegistrato.nomecMonitoraggio.equals(" ")) { // Se l'operatore NON ha già un centro di monitoraggio associato
-                                System.out.println("L'operatore " + username + " NON ha un centro di monitoraggio associato!");
+                                    System.out.println("L'operatore " + username + " NON ha un centro di monitoraggio associato!");
                             }
                             else {  // L'operatore ha un centro di monitoraggio associato e quindi può creare le aree di interesse che monitora quel centro
                                 String city = in.readLine("Inserire città: ");
                                 opRegistrato.InserisciParametriClimatici(city);
                             } 
                                 break;
+                            case "4":
+                                System.out.println("Tornando al menù principale...");
+                                break;
                             default:
+                                System.out.println("Inserimento non valido!");
                                 break;
                         }
-                    } while (Integer.parseInt(scelta) != 4);
+                    } while (!scelta.equals("4"));
                 }  
                 else
                     System.out.println("Username o password errati");
                 break;
+            case "5":
+                System.out.println("Arrivederci!");
+                return;
             default:
+                System.out.println("Inserimento non valido!");
                 break;
             }
-        } while(Integer.parseInt(s) != 5);
+        } while(!s.equals("5"));
     }
 }
