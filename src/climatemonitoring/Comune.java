@@ -57,7 +57,7 @@ public class Comune {
         if(a != null) {
             String[] parametri = CreaListaParametri(a);
             System.out.println(a.toString());
-            if(parametri[14]!=null)
+            if(parametri[14]!=null) {
                 System.out.println("\nParametri climatici rilevati il " + parametri[14] + " alle " + parametri[15] + "\n\nVento: " + parametri[0]);
                 if(!parametri[1].equals(""));
                     System.out.println("> Note: " + parametri[1]);
@@ -85,6 +85,7 @@ public class Comune {
                 System.out.println("\nMassa dei ghiacciai: " + parametri[12]);
                 if(!parametri[13].equals(""))
                     System.out.println("> Note: " + parametri[13]);
+            }
         }
         else {
             System.out.println("Quest'area di interesse non esiste!");
