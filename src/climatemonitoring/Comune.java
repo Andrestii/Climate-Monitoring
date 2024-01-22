@@ -8,8 +8,20 @@ package climatemonitoring;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-
+/**
+ * Contiene i metodi eseguibili dagli utenti comuni, cioe' gli non registrati.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
 public class Comune {
+    /**
+     * Ricerca di un'area geografica in base al nome della citta' e dello stato
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param citta
+     * @param stato
+     * @return l'area geografica ricercata, nel caso non la trova ritorna null
+     */
     public AreaInteresse CercaAreaGeograficaLuogo(String citta, String stato) {
         // Ricerco nella lista quale area ha nome e stato uguali a quelli inseriti
         if(!ClimateMonitor.areeInteresse.isEmpty()) {  // Controllo se la lista non è vuota
@@ -26,6 +38,14 @@ public class Comune {
         return null;
     }
 
+    /**
+     * Ricerca di un'area geografica in base alle coordinate.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param lat Latitudine
+     * @param lon Longitudine
+     * @return l'area geografica piu' vicina, nel caso non la trova ritorna null
+     */
     public AreaInteresse CercaAreaGeograficaCoordinate(String lat, String lon) {
         // Ricerco nella lista quale area ha latitudine e longitudine uguali a quelle inserite
         if(!ClimateMonitor.areeInteresse.isEmpty()) {  // Controllo se la lista non è vuota
@@ -53,6 +73,12 @@ public class Comune {
         return null;
     }
 
+    /**
+     * Stampa delle informazioni e parametri dell'area geografica.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param a L'area di interesse che vogliamo visualizzare
+     */
     public void VisualizzaAreaGeografica(AreaInteresse a) {
         if(a != null) {
             String[] parametri = CreaListaParametri(a);
@@ -92,6 +118,14 @@ public class Comune {
         }
     }
 
+    /**
+     * Crea la lista dei parametri climatici di una certa area prendendo i dati dal file CSV.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param a L'area di interesse a cui vogliamo estrarre i parametri
+     * @throws Exeption
+     * @return parametri
+     */
     public static String[] CreaListaParametri(AreaInteresse a) {   // Dal file .csv prende tutti i parametri e li mette in una array di stringhe
 
         String riga = "";

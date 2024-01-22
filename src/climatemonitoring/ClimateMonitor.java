@@ -8,13 +8,22 @@ package climatemonitoring;
 
 import java.util.List;
 import prog.io.ConsoleInputManager;
-
-public class ClimateMonitor { // Classe main
+/**
+ * Contiene il metodo main del programma che a sua volta contiene i menu' di selezione.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
+public class ClimateMonitor {
 
     static String riga = "";
     public static List<AreaInteresse> areeInteresse;
     public static List<CentroMonitoraggio> centriMonitoraggio;
-    
+    /**
+     * Classe main per il funzionamento del programma.
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         // PROGRAMMA
         ConsoleInputManager in = new ConsoleInputManager();

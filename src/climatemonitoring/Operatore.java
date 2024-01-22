@@ -16,10 +16,12 @@ import java.util.Date;
 
 import prog.io.ConsoleInputManager;
 
+/**
+ * Contiene i metodi eseguibili dagli utenti registrati, cioe' gli operatori.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
 public class Operatore extends Comune {
-
-    /*di creare una o più aree di interesse (tramite coordinate geografiche), raggrupparle per centro di monitoraggio e annotarle 
-    singolarmente con i parametri forniti ad un operatore in una specifica data secondo i parametri dati nella tabella precedente */
 
     public String nome, cognome, codFiscale, mail, userid, password, nomecMonitoraggio;
 
@@ -39,6 +41,13 @@ public class Operatore extends Comune {
 
     // VisualizzaAreaGeografica() prendi da superclasse comune          OK
 
+    /**
+     * Crea la lista delle aree di interesse prendendo i dati dal file CSV.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @throws Exception
+     * @return lista delle aree di interesse
+     */
     public static List<AreaInteresse> CreaListaAreeInteresse() {    // Dal file .csv prende tutte le aree di interesse e le mette in una lista
         
         List<AreaInteresse> areeInteresse = new ArrayList<AreaInteresse>();
@@ -61,6 +70,13 @@ public class Operatore extends Comune {
         return areeInteresse;
     }
 
+    /**
+     * Crea la lista degli operatori prendendo i dati dal file CSV.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @throws Exception
+     * @return lista degli operatori
+     */
     public static List<Operatore> CreaListaOperatori() {   // Dal file .csv prende tutti gli operatori e li mette in una lista
 
         List<Operatore> operatori = new ArrayList<Operatore>();
@@ -83,6 +99,13 @@ public class Operatore extends Comune {
         return operatori;
     }
 
+    /**
+     * Crea la lista dei centri di monitoraggio prendendo i dati dal file CSV.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @throws Exception
+     * @return lista dei centri di monitoraggio
+     */
     public static List<CentroMonitoraggio> CreaListaCentriMonitoraggio() {   // Dal file .csv prende tutti gli operatori e li mette in una lista
 
         List<CentroMonitoraggio> centriMonitoraggio = new ArrayList<CentroMonitoraggio>();
@@ -105,7 +128,14 @@ public class Operatore extends Comune {
         return centriMonitoraggio;
     }
 
-    public static boolean ControllaUsername(String user) {   // Controlla se ci sono più utenti con lo stesso username
+    /**
+     * Controlla se ci sono più utenti con lo stesso username
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param user Username
+     * @return true se trovato, false se non trovato
+     */
+    public static boolean ControllaUsername(String user) {
 
         List<Operatore> operatori = CreaListaOperatori();
         if(!operatori.isEmpty())
@@ -115,7 +145,14 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se quello username non è ancora stato occupato da nessuno
     }
 
-    public static boolean ControllaNomeArea(String nomeArea) {   // Controlla se ci sono più aree con lo stesso nome
+    /**
+     * Controlla se ci sono più aree con lo stesso nome
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param nomeArea Nome dell'area di interesse
+     * @return true se trovato, false se non trovato
+     */
+    public static boolean ControllaNomeArea(String nomeArea) {
 
         List<AreaInteresse> aree = CreaListaAreeInteresse();
         if(!aree.isEmpty())
@@ -125,7 +162,14 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se quell'area non esiste ancora
     }
 
-    public static boolean ControllaNomeCentro(String nomeCentro) {   // Controlla se ci sono più centri con lo stesso nome
+    /**
+     * Controlla se ci sono più centri con lo stesso nome
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param nomeCentro Nome del centro di monitoraggio
+     * @return true se trovato, false se non trovato
+     */
+    public static boolean ControllaNomeCentro(String nomeCentro) {
 
         List<CentroMonitoraggio> centri = CreaListaCentriMonitoraggio();
         if(!centri.isEmpty())
@@ -135,7 +179,15 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se quel centro non esiste ancora
     }
 
-    public static boolean ControllaCoordinate(String lat, String lon) {   // Controlla se ci sono più aree con lo stesso nome
+    /**
+     * Controlla se ci sono più aree con le stesse coordinate
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param lat Latitudine
+     * @param lon Longitudine
+     * @return true se trovato, false se non trovato
+     */
+    public static boolean ControllaCoordinate(String lat, String lon) {
 
         List<AreaInteresse> aree = CreaListaAreeInteresse();
         if(!aree.isEmpty())
@@ -145,6 +197,12 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se non c'è un'area con le stesse coordinate
     }
 
+    /**
+     * Registrazione su file di un nuovo operatore.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @throws Exception
+     */
     public void Registrazione() {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("./data/OperatoriRegistrati.csv", true)); 
@@ -155,6 +213,14 @@ public class Operatore extends Comune {
         }
     } 
 
+    /**
+     * Permette di fare il login all'operatore.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param username
+     * @param passwd
+     * @return true se la password e' giusta, false se sbagliata
+     */
     public static boolean Login(String username, String passwd) {
         List<Operatore> operatori = CreaListaOperatori();
         if(!operatori.isEmpty())
@@ -167,6 +233,13 @@ public class Operatore extends Comune {
         return false;   // Restituisce false se username o password sono sbagliati
     }
 
+    /**
+     * Registrazione su file dei centri di monitoraggio.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param cm Centro di monitoraggio da registrare
+     * @throws Exception
+     */
     public void RegistraCentroAree(CentroMonitoraggio cm) {
         try {   // Aggiorniamo il file con i centri di monitoraggio
             BufferedWriter bw = new BufferedWriter(new FileWriter("./data/CentroMonitoraggio.csv", true)); 
@@ -198,6 +271,16 @@ public class Operatore extends Comune {
         }
     }
 
+    /**
+     * Registrazione su file delle aree di interesse
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param n Nome area interesse
+     * @param s Stato area interesse
+     * @param lat Latitudine area interesse
+     * @param lon Longitudine area interesse
+     * @throws Exception
+     */
     public void RegistraAreaInteresse(String n, String s, String lat, String lon) {
         try {   // Aggiorniamo CoordinateMonitoraggio.csv
             BufferedWriter bw = new BufferedWriter(new FileWriter("./data/CoordinateMonitoraggio.csv", true)); 
@@ -236,7 +319,14 @@ public class Operatore extends Comune {
         }
     }
 
-    public boolean ControlloListaAreeMonitorate(String c) { // Controlla se la città è tra quelle monitorate dal centro dell'operatore
+    /**
+     * Controlla se la città è tra quelle monitorate dal centro dell'operatore
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param c Nome citta'
+     * @return true se monitorata dall'operatore corrente, false se non esiste oppure se non e' monitorata dall'operatore corrente
+     */
+    public boolean ControlloListaAreeMonitorate(String c) {
         List<CentroMonitoraggio> centriMonitoraggio = CreaListaCentriMonitoraggio();
         for(CentroMonitoraggio cm : centriMonitoraggio) {
             if(cm.nome.equals(nomecMonitoraggio)) {
@@ -249,6 +339,13 @@ public class Operatore extends Comune {
         return false;
     }
 
+    /**
+     * Inserimento dei parametri climatici di una certa area di interesse.
+     * 
+     * @author Andrea Onesti, Lorenzo De Paoli
+     * @param c Nome citta'
+     * @throws Exception
+     */
     public void InserisciParametriClimatici(String c) {
         if(ControlloListaAreeMonitorate(c)) {
             List<AreaInteresse> areeInteresse = CreaListaAreeInteresse();

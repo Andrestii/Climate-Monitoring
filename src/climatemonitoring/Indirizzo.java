@@ -5,7 +5,11 @@
  * SEDE: VARESE */
 
 package climatemonitoring;
-
+/**
+ * Contiene le informazioni dell'indirizzo dei centri di monitoraggio.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
 public class Indirizzo { // Indirizzo fisico dei centri di monitoraggio
 
     public String via, ncivico, cap, comune, provincia;

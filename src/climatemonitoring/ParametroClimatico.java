@@ -5,7 +5,11 @@
  * SEDE: VARESE */
 
 package climatemonitoring;
-
+/**
+ * Contiene le informazioni dei parametri climatici.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
 public class ParametroClimatico {
 
     public String score, note;

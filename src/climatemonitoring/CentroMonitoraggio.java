@@ -8,7 +8,11 @@ package climatemonitoring;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Contiene le informazioni del centro di monitoraggio.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
 public class CentroMonitoraggio {
 
     public String nome;

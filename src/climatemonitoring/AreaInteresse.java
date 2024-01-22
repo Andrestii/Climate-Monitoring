@@ -5,7 +5,11 @@
  * SEDE: VARESE */
 
 package climatemonitoring;
-
+/**
+ * Contiene le informazioni delle aree di interesse.
+ * 
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
 public class AreaInteresse {
 
     public String nome, stato, latitudine, longitudine;
@@ -17,7 +21,12 @@ public class AreaInteresse {
         this.latitudine = latitudine;
         this.longitudine = longitudine;
     }
-
+/**
+ * Restiuisce stringa che contiene i dati dell'area di interesse che servira' poi nella stampa.
+ * 
+ * @return Stringa con parametri
+ * @author Andrea Onesti, Lorenzo De Paoli
+ */
     @Override
     public String toString() {
         return "\nCittà: " + nome + "\nStato: " + stato + "\nLatitudine: " + latitudine + "\nLongitudine " + longitudine;
