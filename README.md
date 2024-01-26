@@ -1,6 +1,6 @@
 # Climate Monitoring
 
-Progetto universitario per il corso Laboratorio Interdisciplinare A.
+Progetto universitario per il corso "Laboratorio Interdisciplinare A".
 
 ### Manuali
 
@@ -9,7 +9,7 @@ Progetto universitario per il corso Laboratorio Interdisciplinare A.
 
 ---
 
-University project for the course Laboratorio Interdisciplinare A.
+University project for the course "Laboratorio Interdisciplinare A".
 
 ### Manuali
 
