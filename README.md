@@ -11,7 +11,7 @@ Progetto universitario per il corso "Laboratorio Interdisciplinare A".
 
 University project for the course "Laboratorio Interdisciplinare A".
 
-### Manuali
+### Manuals
 
 - [User manual](https://github.com/Andrestii/ClimateMonitoring/blob/main/doc/Manuale%20Utente.pdf)
 - [Technical manual](https://github.com/Andrestii/ClimateMonitoring/blob/main/doc/Manuale%20Tecnico.pdf)
